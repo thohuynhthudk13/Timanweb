@@ -1,0 +1,73 @@
+﻿@page "/admin"
+@using FormatCurrency
+<!-- Page Heading -->
+<div class="bg-white mb-3 p-3 shadow">
+    <h1 class="h3 mb-3 text-gray-800">Quản lý hàng hóa</h1>
+
+    <form class=" form-inline mr-auto ml-3 my-2 my-0 mw-100 navbar-search mb-3">
+        <div class="input-group w-75">
+            <input type="text" class="form-control bg-light border-0 small" @bind-value="keyword" placeholder="Tìm kiếm hàng hóa..." aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-primary" @onclick="SearchProduct" type="button">
+                    <i class="fa fa-search fa-sm"></i>
+                </button>
+            </div>
+            <div class="input-group ml-3">
+                <a class="btn btn-success" href="/admin/productcreate">
+                    <i class="fa fa-plus fa-sm mr-1"></i>
+                    Thêm sản phẩm
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách hàng hóa</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            @if (Products == null)
+            {
+                <div>Loading...</div>
+            }
+            else
+            {
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th width="5%">ID</th>
+                            <th width="20%">Tên</th>
+                            <th width="15%">Giá</th>
+                            <th width="20%">Ngày tạo</th>
+                            <th width="15%">Hình ảnh</th>
+                            <th width="10%">Loại</th>
+                            <th width="15%">Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Products)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td><a href="/admin/productdetail/@item.Id">@item.Name</a></td>
+                                <td>@FormatCurency.Currency(item.Price)</td>
+                                <td>@item.DateCreated</td>
+                                <td><img class="img-thumbnail w-75" src="@item.ThumbnailImage" alt="Image product" /></td>
+                                <td>@item.Category?.Name</td>
+                                <td>
+                                    <a href="/admin/productedit/@item.Id" class="btn btn-warning">Sửa</a>
+                                    <button class="btn btn-danger" @onclick="()=>OnDeleteProdyct(item.Id)">Xóa</button>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            }
+
+        </div>
+    </div>
+</div>
+

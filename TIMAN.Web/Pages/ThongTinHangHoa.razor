@@ -1,0 +1,40 @@
+﻿@page "/admin/productdetail/{id}"
+@using FormatCurrency
+@if (Product != null)
+{
+    <div class="bg-white shadow p-3">
+        <h3>Chi tiết @Product.Name</h3>
+        <table class="table">
+            <tr>
+                <th width="20%">Tên</th>
+                <td>@Product.Name</td>
+            </tr>
+            <tr>
+                <th>Giá</th>
+                <td>@FormatCurency.Currency(Product.Price)</td>
+            </tr>
+            <tr>
+                <th>Ngày tạo</th>
+                <td>@Product.DateCreated</td>
+            </tr>
+            <tr>
+                <th>Hình ảnh</th>
+                <td><img class="img-thumbnail w-50" src="@Product.ThumbnailImage" alt="Image" /></td>
+            </tr>
+            <tr>
+                <th>Mô tả</th>
+                <td>@Product.Description</td>
+            </tr>
+            <tr>
+                <th>Loại</th>
+                <td>@Product.Category?.Name</td>
+            </tr>
+        </table>
+    </div>
+}
+else
+{
+    <div>Loading...</div>
+}
+
+

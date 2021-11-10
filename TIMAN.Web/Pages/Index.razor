@@ -1,0 +1,77 @@
+﻿@page "/"
+@using FormatCurrency
+<div class="container mt-5">
+    <div class="col-12 text-right">
+        <button class="btn btn-danger mb-2 btn-showhide" @onclick="HienAnSanPham">Hiện/ẩn sản phẩm</button>
+
+    </div>
+    <div class="box-content">
+        <h3>@ToaDo</h3>
+
+        <div class="heading__custom">
+            <i class="heading__custom-icon fas fa-bahai"></i> Đề xuất riêng cho
+            bạn
+        </div>
+        @if (Products == null)
+        {
+            <div>Loading...</div>
+        }
+        else
+        {
+    <ul class="listproduct">
+        @if(HienThiSanPham){
+            @foreach (var item in Products)
+            {
+                <li class="item">
+                    <a href="/san-pham/@item.Id" class="main-contain">
+                        <div class="item-img item-img_42">
+                            <img class="thumb ls-is-cached lazyloaded"
+                                 alt="@item.Name"
+                                 src="@item.ThumbnailImage" @onmousemove="@DiChuyenChuot" />
+                        </div>
+
+                        <div class="product-content">
+                            <h3 class="product-name">@item.Name</h3>
+                            <strong class="price">@FormatCurency.Currency(@item.Price)</strong>
+                            <div class="item-bottom">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="product-size">
+                                <div class="product-size-title">Size giày</div>
+                                <div class="product-size-content">
+                                    <span class="product-size-item">
+                                        <span class="product-size-item-text">Size -</span>
+                                        35
+                                    </span><span class="product-size-item">
+                                        <span class="product-size-item-text">Size -</span>
+                                        36
+                                    </span><span class="product-size-item">
+                                        <span class="product-size-item-text">Size -</span>
+                                        37
+                                    </span><span class="product-size-item">
+                                        <span class="product-size-item-text">Size -</span>
+                                        38
+                                    </span><span class="product-size-item">
+                                        <span class="product-size-item-text">Size -</span>
+                                        39
+                                    </span><span class="product-size-item">
+                                        <span class="product-size-item-text">Size -</span>
+                                        40
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="product-btn-favorite">Xem ngay</div>
+                        </div>
+                    </a>
+                </li>
+            }
+        }
+
+    </ul>
+        }
+    </div>
+</div>

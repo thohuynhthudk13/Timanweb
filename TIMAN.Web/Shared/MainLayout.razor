@@ -1,0 +1,218 @@
+﻿@inherits LayoutComponentBase
+@using TIMAN.Model
+
+@if (!UriHelper.Uri.Contains("admin"))
+{
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <div class="header-middle-content">
+                    <div class="header-middle-left">
+                        <a id="logo" class="header-logo" href="/" rel="js-header-logo">
+                            <img class="header-logo-pc loading"
+                                 src="	https://timan.vn/Thumb.ashx?s=500&file=/UploadImages/timan-logo.png"
+                                 alt="Timan - Kênh Mua Sắm Giày Trực Tuyến Hàng Đầu Việt Nam"
+                                 width="150px"
+                                 height="24px"
+                                 data-was-processed="true" />
+                        </a>
+                    </div>
+                    <div class="header-middle-center">
+                        <div class="header-search-content" rel="js-header-search-content">
+                            <div class="header-search-box">
+                                <input name="txtSearch"
+                                       type="text"
+                                       id="txtSearch"
+                                       class="search has-error header-search-input"
+                                       @bind-value="@TuKhoaTimKiem"
+                                       autocomplete="off"
+                                       placeholder="Tìm kiếm trên Timan..." />
+                                <span class="not-visible"></span>
+                                <div class="header-search-button"
+                                     id="btnSearchText"
+                                     @onclick="@TimKiemSanPham">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="container">
+                <ul class="main-menu">
+                    <li class="">
+                        <NavLink href="/" Match="NavLinkMatch.All">
+                            <span>Trang chủ</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink href="/category/1" Match="NavLinkMatch.All">
+                            <span>Giày nam</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink href="/category/2" Match="NavLinkMatch.All">
+                            <span>Giày nữ</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink href="/category/3" Match="NavLinkMatch.All">
+                            <span>Thời trang nam</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink href="/category/4" Match="NavLinkMatch.All">
+                            <span>Thời trang nữ</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink href="/category/5" Match="NavLinkMatch.All">
+                            <span>Thời trang bé yêu</span>
+                        </NavLink>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    @Body
+}
+else if (checkLogged)
+{
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
+
+                <div class="sidebar-brand-text mx-3">
+                    <img class="header-logo-pc loading"
+                         src="	https://timan.vn/Thumb.ashx?s=500&file=/UploadImages/timan-logo.png"
+                         alt="Timan - Kênh Mua Sắm Giày Trực Tuyến Hàng Đầu Việt Nam"
+                         width="150px"
+                         height="24px" />
+                </div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link " href="/admin">
+                    <i class="fas fa-fw fa-tshirt"></i>
+                    <span>Hàng hóa</span>
+                </a>
+            </li>
+
+
+
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <form class="form-inline">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </form>
+
+
+
+
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+
+                    @Body
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+
+}
+else
+{
+    <div class="bg-gradient-primary vh-100">
+
+        <div class="container h-100">
+
+            <!-- Outer Row -->
+            <div class="row justify-content-center h-100 align-items-center">
+
+                <div class="col-xl-10 col-lg-12 col-md-9">
+
+                    <div class="card o-hidden border-0 shadow-lg my-5 py-5">
+                        <div class="card-body p-0">
+                            <!-- Nested Row within Card Body -->
+                            <div class="row">
+                                <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="p-5">
+                                        <div class="text-center">
+                                            <h1 class="h4 text-gray-900 mb-4">Đăng nhập TIMAN!</h1>
+                                        </div>
+                                        <EditForm class="user" Model="Login" OnValidSubmit="SubmitLogin">
+                                            <DataAnnotationsValidator />
+
+                                            <div class="form-group">
+                                                <InputText class="form-control form-control-user"
+                                                           id="exampleInputUserName"
+                                                           placeholder="Tên tài khoản..." @bind-Value="Login.UserName" />
+                                                <ValidationMessage For="()=>Login.UserName"></ValidationMessage>
+                                            </div>
+                                            <div class="form-group">
+                                                <InputText type="password" class="form-control form-control-user"
+                                                           id="exampleInputPassword" placeholder="Mật khẩu" @bind-Value="Login.Password" />
+                                                <ValidationMessage For="()=>Login.Password"></ValidationMessage>
+
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                                                Đăng nhập
+                                            </button>
+
+                                        </EditForm>
+                                        <hr>
+
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+       
+
+    </div>
+
+}
+

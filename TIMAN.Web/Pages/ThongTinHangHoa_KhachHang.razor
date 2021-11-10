@@ -1,0 +1,250 @@
+﻿@page "/san-pham/{id}"
+@using FormatCurrency
+@if (Product != null)
+{
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-white">
+                <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="/category/@Product.CategoryId">@Product.Category?.Name</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Product.Name</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-12">
+                <div class="product w-100">
+                    <img src="@Product.ThumbnailImage" class="card-img" />
+                </div>
+                <div class="detail-social-bottom">
+                    <div class="detail-social">
+                        <strong>
+                            Chia sẻ
+                        </strong>
+                        <i class="product-detail-heading-twitter fab fa-twitter"></i>
+                        <i class="product-detail-heading-facebook fa fa-facebook"></i>
+                        <i class="product-detail-heading-pinterest fa fa-pinterest"></i>
+                        <i class="product-detail-heading-linkedin fa fa-linkedin"></i>
+                    </div>
+                    <div class="product-detail-heart">
+                        <i class="fa fa-heart"></i>
+                        Đã thích (<span>224</span>)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 col-sm-12">
+                <div class="detail-content">
+                    <div class="detail-content-top">
+                        <h3 itemprop="name" class="product-detail-name">@Product.Name</h3>
+                        <span class="product-total-star-number">4.62</span>
+                        <div class="product-detail-star" id="product-star1608" value="4.62" rel="js-product-star-detail">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <span class="product-box-text-star">
+                            <b>247</b>
+                            <span> Đánh giá </span>
+                        </span>
+                        <span class="product-box-text-db">
+                            <b> 857</b> <span> Đã bán </span>
+                        </span>
+                        <span class="product-box-text-db">
+                            <div class="product-availability product-detail-availability">Tình trạng: <span class="actitve"> Còn hàng </span></div>
+                        </span>
+
+                    </div>
+                    <div class="row bd-layout bd-layout-detail">
+                        <div class="container">
+                            <div class="prices detail-prices">
+                                <div class="product-detail-prices ">
+                                    <div class="product-detail-prices2" rel="js-new-prices-option">
+
+                                        @FormatCurency.Currency(Product.Price)
+                                        <div class="product-discount-wrapper"><span class="discount">-43%</span>Giảm</div>
+
+                                    </div>
+                                    <div class="product-price-text">
+                                        <div class="product-price-text-item">
+                                            <i class="fa fa-refresh"></i> Hỗ trợ đổi size miễn phí
+                                        </div>
+                                        <div class="product-price-text-item">
+                                            <i class="fas fa-ribbon"></i> Bảo hành từ 1 đến 5 năm
+                                        </div>
+                                        <div class="product-price-text-item">
+                                            <i class="fa fa-rocket"></i> Giao hàng nhanh toàn quốc
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="Product-text-box">
+                                Mô tả: @Product.Description
+                            </div>
+                            <div class="popup-prd-detail" rel="js-popup-prd-detail">
+
+                                <div class="product-detail-quality-bg product-detail-quality-bg-detail">
+                                    <strong>Số lượng</strong>
+                                    <span class="product-detail-quality">
+                                        <input class="btn-decrement" type="button" value="-" @onclick="()=> {SoLuong--; }">
+                                        <input type="number" class="form-control" id="addtocart_quantity" @bind-value="SoLuong" min="1" maxlength="10">
+                                        <input class="btn-increment" type="button" value="+" @onclick="()=> { SoLuong ++; }">
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div id="overviewproduct" class="contact-info detail-contact-info">
+                                <div class="detail-add-cart">
+                                    <a href="javascript:void(0)" class="btn__custom btn__custom-cart" id="add_cart1608">
+                                        <i class="icon icon-basket-loaded"></i> Thêm vào giỏ hàng
+                                        <span class="image-opencart"></span>
+                                    </a>
+                                    <a class="btn__custom btn__custom-favorite" href="javascript:void(0)" id="add_cart1608">
+                                        Mua ngay
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="detail-summarycontent detail-guaranteed">
+                                <i class="fa fa-shield"></i> <span>Timan</span> bảo đảm <span>7</span> ngày Trả hàng/ Hoàn tiền
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="heading__custom pt-cs"> <span>Sản phẩm liên quan</span>  </div>
+
+        <ul class="listproduct">
+            @foreach (var item in Products)
+            {
+                <li class="item">
+                    <a href="/san-pham/@item.Id" class="main-contain">
+                        <div class="item-img item-img_42">
+                            <img class="thumb ls-is-cached lazyloaded"
+                                 alt="@item.Name"
+                                 src="@item.ThumbnailImage" />
+                        </div>
+
+                        <div class="product-content">
+                            <h3 class="product-name">@item.Name</h3>
+                            <strong class="price">@FormatCurency.Currency(@item.Price)</strong>
+                            <div class="item-bottom">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="product-size">
+                                <div class="product-size-title">Size giày</div>
+                                <div class="product-size-content">
+                                    <span class="product-size-item">
+                                        <span class="product-size-item-text">Size -</span>
+                                        35
+                                    </span><span class="product-size-item">
+                                        <span class="product-size-item-text">Size -</span>
+                                        36
+                                    </span><span class="product-size-item">
+                                        <span class="product-size-item-text">Size -</span>
+                                        37
+                                    </span><span class="product-size-item">
+                                        <span class="product-size-item-text">Size -</span>
+                                        38
+                                    </span><span class="product-size-item">
+                                        <span class="product-size-item-text">Size -</span>
+                                        39
+                                    </span><span class="product-size-item">
+                                        <span class="product-size-item-text">Size -</span>
+                                        40
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="product-btn-favorite">Xem ngay</div>
+                        </div>
+                    </a>
+                </li>
+            }
+
+
+        </ul>
+    </div>
+    <div class="container mb-5">
+        <div class="about">
+            <div class="about-row">
+                <div class="about-cl">
+                    <div class="about-item">
+                        <div class="about-icon">
+                            <i class="fas fa-ribbon"></i>
+                        </div>
+                        <div class="about-content">
+                            <div class="about-title">
+                                BỀN - ĐẸP - CHẤT
+                            </div>
+                            <div class="about-desc">
+                                Bảo hành từ 1-5 năm
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-cl">
+                    <div class="about-item">
+                        <div class="about-icon">
+                            <i class="fa fa-rocket"></i>
+                        </div>
+                        <div class="about-content">
+                            <div class="about-title">
+                                GIAO HÀNG
+                            </div>
+                            <div class="about-desc">
+                                Giao nhanh trong 3-5 ngày
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-cl">
+                    <div class="about-item">
+                        <div class="about-icon">
+                            <i class="fa fa-credit-card"></i>
+                        </div>
+                        <div class="about-content">
+                            <div class="about-title">
+                                THANH TOÁN
+                            </div>
+                            <div class="about-desc">
+                                Thanh toán khi nhận hàng
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-cl">
+                    <div class="about-item">
+                        <div class="about-icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="about-content">
+                            <div class="about-title">
+                                0869 27 5969
+                            </div>
+                            <div class="about-desc">
+                                Làm việc 8h30 - 22h30
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div>Loading...</div>
+}

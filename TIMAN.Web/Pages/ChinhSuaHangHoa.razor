@@ -1,0 +1,65 @@
+﻿@page "/admin/productedit/{id}"
+@if (Product != null)
+{
+    <div class="bg-white shadow p-3">
+        <h3>Sửa @Product.Name</h3>
+
+        <EditForm Model="Product" OnValidSubmit="SubmitProduct">
+            <DataAnnotationsValidator />
+            <div class="form-group">
+                <label for="Name">Tên</label>
+                <InputText class="form-control" @bind-Value="Product.Name"></InputText>
+                <ValidationMessage For="()=>Product.Name"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Giá</label>
+                <InputNumber class="form-control" @bind-Value="Product.Price"></InputNumber>
+                <ValidationMessage For="()=>Product.Price"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Hình ảnh</label>
+                <InputText class="form-control" @bind-Value="Product.ThumbnailImage"></InputText>
+                <ValidationMessage For="()=>Product.ThumbnailImage"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Mô tả</label>
+                <InputText class="form-control" @bind-Value="Product.Description"></InputText>
+                <ValidationMessage For="()=>Product.Description"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Loại</label>
+                <InputSelect class="form-control" @bind-Value="Product.CategoryId">
+                    <option>Chọn loại sản phẩm</option>
+                    @if (Categories != null)
+                        {
+                        @foreach (var item in Categories)
+                            {
+                            <option value="@item.Id">@item.Name</option>
+                            }
+                        }
+                </InputSelect>
+                <ValidationMessage For="()=>Product.CategoryId"></ValidationMessage>
+            </div>
+
+            @*<div class="form-group">
+                    <label for="Name">Priority</label>
+                    <InputSelect class="form-control" @bind-Value="Product.Priority">
+                        <option>Select a priority</option>
+                        @foreach (string item in Enum.GetNames(typeof(Priority)))
+                            {
+                            <option value="@item">@item</option>
+                            }
+                    </InputSelect>
+                    <ValidationMessage For="()=>Product.Priority"></ValidationMessage>
+                    <small id="nameHelp" class="form-text text-muted">Choose a priority which you want.</small>
+                </div>*@
+            <button type="submit" class="btn btn-primary">Lưu</button>
+        </EditForm>
+    </div>
+}
+else
+{
+    <div>Loading...</div>
+}
+
+
